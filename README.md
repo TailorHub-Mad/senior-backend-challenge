@@ -53,8 +53,8 @@ At Tailor, we use TypeScript, Express and NestJS for our projects, but feel free
 
 Think about this as your roadmap to production. You do not need a fully running setup, but we expect to see how you would approach these topics in code and documentation:
 
-- **Rate limiting:** show (even if partially implemented) how you would treat different roles: anonymous, authenticated, admin. Leave code or comments that explain how the counters would be shared across multiple pods/instances (for example: Redis + token bucket per `userId`, role, or IP), even if infra would take care of it in a real deployment.
-- **Caching:** add mocks or simplified adapters in your read/query layer that demonstrate where caching would live (e.g. repositories wrapping database reads). Document how those mocks would be swapped for Redis/Memcached, what keys/TTLs you would use, and what data deserves caching.
+- **Rate limiting:** implement (even if simplified) how you would enforce different limits per role (e.g. anonymous 10 req/min, authenticated 60 req/min, admin 100 req/min) and sketch in code or docs how the counters stay consistent across multiple pods/instances.
+- **Caching:** implement or mock the cache layer in your read path (for example a repository adapter), clarify which data you would cache, the key structure/TTLs, and explain how the mock would be swapped for Redis/Memcached or any similar service in production. Describe the invalidation policy you would use when the source data changes.
 - **Docker:** include the containers you actually need (API + Postgres). If you plan to add cache or rate-limiter services later, document them or leave commented services in `docker-compose.yml` so we understand your intent.
 
 ### Architecture diagram
@@ -71,7 +71,6 @@ Imagine that after some time our application has *100.000 users per week* and so
 
 1. Deploy the app.
 2. Write realistic unit & end-to-end tests.
-3. For statistics: if you have time, create a query that returns the top 3 rated restaurants, the top 3 most reviewed restaurants.
 
 ## Postgres database
 
