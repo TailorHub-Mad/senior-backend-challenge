@@ -8,7 +8,7 @@ Attached below are a series of steps you can take for guidance progressively.
 ## Mandatory deliverables
 
 1. **Postman (or Insomnia) collection** covering every required endpoint, with ready-to-use variables/environments targeting the local backend. Ship the collection inside the repo (e.g. `docs/tailor.postman_collection.json`) so we can import it directly.
-2. **Hexagonal architecture + DDD with CQS/CQRS**: keep a clear split between domain/application/infrastructure layers and model commands/queries explicitly. Frameworks such as **NestJS** are recommended because they ease these patterns (modules, providers, CQRS package), but you may use another stack as long as the architecture is evident and documented.
+2. **Hexagonal architecture + DDD with CQS**: keep a clear split between domain/application/infrastructure layers and model commands/queries explicitly. Frameworks such as **NestJS** are recommended because they ease these patterns (modules, providers, CQRS package), but you may use another stack as long as the architecture is evident and documented.
 3. **Postgres database**: the API must run against Postgres populated with the canonical seed provided here. Use the included `docker-compose.yml` and `postgres/init.sql` snapshot to stay aligned.
 
 ## Backend
@@ -45,8 +45,8 @@ At Tailor, we use TypeScript, Express and NestJS for our projects, but feel free
 
 ### Middlewares    
 
-- [ ] Middleware for authentication
-- [ ] Middleware for roles
+- Middleware for authentication
+- Middleware for roles
 
 ### Scalability
 
@@ -55,19 +55,19 @@ You will need to think of some strategies to make your application scalable.
 
 Some pointers or ideas:
 
-- [ ] Rate Limiting
-- [ ] Caching
-- [ ] Docker
+- Rate limiting
+- Caching
+- Docker
 
 ### Architecture diagram
 
 Please use [draw.io](https://draw.io), [excalidraw](https://excalidraw.com) or any similar schema tools to create a diagram of the overall architecture of your application.
 
-- [ ] Diagram 1: expose to us how you have designed your current application.
+- Diagram 1: expose how you designed your current application.
 
 Imagine that after some time our application has *100.000 users per week* and some peak timings during the day with a lot of requests & traffic. 
 
-- [ ] Diagram 2: expose to us how you would scale your application with these new conditions and what you would do to improve the performance of your application.
+- Diagram 2: describe how you would scale your application with these new conditions and what you would do to improve performance.
 
 ## Bonus points
 
