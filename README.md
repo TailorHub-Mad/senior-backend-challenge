@@ -9,11 +9,12 @@ Attached below are a series of steps you can take for guidance progressively.
 
 1. **Postman (or Insomnia) collection** covering every required endpoint, with ready-to-use variables/environments targeting the local backend. Ship the collection inside the repo (e.g. `docs/tailor.postman_collection.json`) so we can import it directly.
 2. **Hexagonal architecture + DDD with CQS**: keep a clear split between domain/application/infrastructure layers and model commands/queries explicitly. Frameworks such as **NestJS** are recommended because they ease these patterns (modules, providers, CQRS package), but you may use another stack as long as the architecture is evident and documented.
-3. **Postgres database**: the API must run against Postgres populated with the canonical seed provided here. Use the included `docker-compose.yml` and `postgres/init.sql` snapshot to stay aligned.
+3. **Documentation**: provide clear, reproducible guidance to run, test and understand your solution (README updates, Swagger, Postman envs, diagrams, etc.). We should be able to follow your instructions end-to-end without guessing.
+4. **Postgres database**: the API must run against Postgres populated with the canonical seed provided here. Use the included `docker-compose.yml` and `postgres/init.sql` snapshot to stay aligned.
 
 ## Backend
 
-We have a simple SQLite database with some tables.
+We have a simple database with some tables.
 Create a an API with the following endpoints:
 At Tailor, we use TypeScript, Express and NestJS for our projects, but feel free to use any other framework you are comfortable with (as long as the architecture described above is respected).
 
@@ -50,31 +51,27 @@ At Tailor, we use TypeScript, Express and NestJS for our projects, but feel free
 
 ### Scalability
 
-As a second step, imagine that your application is growing over time. Scalability is key.
-You will need to think of some strategies to make your application scalable. 
+Think about this as your roadmap to production. You do not need a fully running setup, but we expect to see how you would approach these topics in code and documentation:
 
-Some pointers or ideas:
-
-- Rate limiting
-- Caching
-- Docker
+- **Rate limiting:** show (even if partially implemented) how you would treat different roles: anonymous, authenticated, admin. Leave code or comments that explain how the counters would be shared across multiple pods/instances (for example: Redis + token bucket per `userId`, role, or IP), even if infra would take care of it in a real deployment.
+- **Caching:** add mocks or simplified adapters in your read/query layer that demonstrate where caching would live (e.g. repositories wrapping database reads). Document how those mocks would be swapped for Redis/Memcached, what keys/TTLs you would use, and what data deserves caching.
+- **Docker:** include the containers you actually need (API + Postgres). If you plan to add cache or rate-limiter services later, document them or leave commented services in `docker-compose.yml` so we understand your intent.
 
 ### Architecture diagram
 
-Please use [draw.io](https://draw.io), [excalidraw](https://excalidraw.com) or any similar schema tools to create a diagram of the overall architecture of your application.
+Please use [excalidraw](https://excalidraw.com), [Mermaid](https://mermaid.js.org) or any similar schema tools to create a diagram of the overall architecture of your application.
 
 - Diagram 1: expose how you designed your current application.
 
 Imagine that after some time our application has *100.000 users per week* and some peak timings during the day with a lot of requests & traffic. 
 
-- Diagram 2: describe how you would scale your application with these new conditions and what you would do to improve performance.
+- Diagram 2: describe how you would scale your application with these new conditions, detailing every component (API, DB, cache, rate limiter, queues, observability, etc.) and how they interact to handle the extra load and improve performance.
 
 ## Bonus points
 
 1. Deploy the app.
 2. Write realistic unit & end-to-end tests.
-3. Good documentation is appreciated (with tools like Swagger, Postman, etc or just explicit guidance in the README.md)
-4. For statistics: if you have time, create a query that returns the top 3 rated restaurants, the top 3 most reviewed restaurants.
+3. For statistics: if you have time, create a query that returns the top 3 rated restaurants, the top 3 most reviewed restaurants.
 
 ## Postgres database
 
